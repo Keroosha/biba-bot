@@ -1,7 +1,8 @@
-biba-bot
-
+# biba-bot
 
 ## Config
+
+Create config at root direcotry of biba-bot-web
 
 ```json
 {
