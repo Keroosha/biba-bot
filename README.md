@@ -7,9 +7,11 @@ Create config at root direcotry of biba-bot-web
 ```json
 {
   "token": "replaceme",
-  "autoAssign": [
-    "🟊🟊 Random"
-  ],
+  "autoAssign": {
+    "groups": [
+      "🟊🟊 Random"
+    ]
+  },
   "pidorBot": {
     "resetInterval": "24",
     "command": "!pidor-today",

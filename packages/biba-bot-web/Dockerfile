@@ -12,4 +12,4 @@ COPY --from=build /var/biba-bot-web/node_modules /var/bot/node_modules
 
 WORKDIR /var/bot
 
-CMD ls && node dist/index.js
+CMD node dist/index.js
