@@ -1,0 +1,15 @@
+{
+  "name": "biba-bot",
+  "version": "0.0.1",
+  "description": "Биба бот",
+  "main": "index.js",
+  "author": "Keroosha",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "prettier": "2.1.2"
+  }
+}
