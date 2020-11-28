@@ -2,11 +2,18 @@
 
 ## Config
 
-Create config at root direcotry of biba-bot-web
+Create config at root directory of biba-bot-web
 
 ```json
 {
   "token": "replaceme",
+  "randomOrgToken": "replaceme",
+  "database": {
+    "host": "db",
+    "user": "postgres",
+    "password": "postgres",
+    "database": "bibabot"
+  },
   "autoAssign": {
     "groups": [
       "🟊🟊 Random"
@@ -15,7 +22,8 @@ Create config at root direcotry of biba-bot-web
   "pidorBot": {
     "resetInterval": "24",
     "command": "!pidor-today",
-    "userChannel": "pidor-today"
+    "userChannel": "pidor-today",
+    "assignRole": "rolename"
   }
 }
 ```
