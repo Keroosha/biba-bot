@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bibabot
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  
+  bibabot:
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    links:
+      - db
+    depends_on:
+      - db
+
+volumes:
+  db_data

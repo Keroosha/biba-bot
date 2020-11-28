@@ -1,22 +1,50 @@
+import Knex from "knex";
+
+export type PidorModel = {
+  guildId: string;
+  pidorId: string;
+  randomHash?: string;
+  assignDate: string;
+};
+
 export type PidorStorage = {
-  getCurrentPidor: () => string | undefined;
-  setCurrentPidor: (pdrId: string) => void;
-  resetCurrentPidor: () => void;
+  getCurrentPidor: (guidId: string) => Promise<PidorModel | undefined>;
+  setCurrentPidor: (guildId: string, pdrModel: PidorModel) => Promise<void>;
+  resetCurrentPidor: (guildId: string) => Promise<void>;
 };
 
 export type PidorStorageInmemory = PidorStorage & {
-  _pdrId?: string;
+  _pdrStorage: { [key: string]: PidorModel | undefined };
+};
+
+export type PidorStoragePostgres = PidorStorage & {
+  _connection: Knex;
 };
 
 export const createPidorInmemoryStorage = (): PidorStorageInmemory => ({
-  _pdrId: undefined,
-  getCurrentPidor() {
-    return this._pdrId;
+  _pdrStorage: {},
+  async getCurrentPidor(guildId) {
+    return this._pdrStorage[guildId];
   },
-  setCurrentPidor(x: string) {
-    this._pdrId = x;
+  async setCurrentPidor(guildId, x) {
+    this._pdrStorage[guildId] = x;
   },
-  resetCurrentPidor() {
-    this._pdrId = undefined;
+  async resetCurrentPidor(guildId) {
+    this._pdrStorage[guildId] = undefined;
+  },
+});
+
+export const createPidorPostgresStorage = (connection: Knex): PidorStoragePostgres => ({
+  _connection: connection,
+  getCurrentPidor(guildId) {
+    return this._connection<PidorModel>("pidors").first("*").where("guildId", guildId);
+  },
+  async setCurrentPidor(guildId, x) {
+    const exist = await this.getCurrentPidor(guildId);
+    if (!exist) return this._connection<PidorModel>("pidors").insert(x);
+    return this._connection<PidorModel>("pidors").where("guildId", guildId).update(x);
+  },
+  resetCurrentPidor(guildId) {
+    return this._connection<PidorModel>("pidors").where("guildId", guildId).delete();
   },
 });

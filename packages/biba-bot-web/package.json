@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "start-tsc": "ts-node src/index.ts",
-    "build": "rimraf dist && tsc -b tsconfig.json"
+    "build": "rimraf dist && tsc -b tsconfig.json && cp -r migrations dist"
   },
   "devDependencies": {
     "rimraf": "3.0.2",
@@ -15,6 +15,10 @@
     "@types/node": "14.14.6"
   },
   "dependencies": {
+    "date-fns": "2.16.1",
+    "knex": "0.21.12",
+    "pg": "8.4.2",
+    "random-org": "2.1.0",
     "discord.js": "12.4.1",
     "dotenv": "8.2.0",
     "typescript": "4.0.5"
