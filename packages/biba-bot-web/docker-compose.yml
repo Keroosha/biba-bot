@@ -13,6 +13,8 @@ services:
     build: 
       dockerfile: Dockerfile
       context: .
+    restart: 
+      - on-failure
     links:
       - db
     depends_on:
